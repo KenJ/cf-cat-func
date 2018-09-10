@@ -1,0 +1,15 @@
+{
+  "name": "cf-cats-func",
+  "version": "0.0.1",
+  "description": "initial serverless function app with cosmos db sql javascript api",
+  "main": "config.js",
+  "dependencies": {
+    "documentdb": "^1.14.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
