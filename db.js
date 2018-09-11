@@ -24,7 +24,6 @@ class db {
     };
     
     getDatabase() {
-        console.log(`Getting database:\n${databaseId}\n`);
         let databaseUrl = uriFactory.createDatabaseUri(databaseId);
         return new Promise((resolve, reject) => {
             client.readDatabase(databaseUrl, (err, result) => {
@@ -47,7 +46,6 @@ class db {
 
 
     getCollection() {
-        console.log(`Getting collection:\n${collectionId}\n`);
         let collectionUrl = uriFactory.createDocumentCollectionUri(databaseId, collectionId);
         return new Promise((resolve, reject) => {
             client.readCollection(collectionUrl, (err, result) => {
@@ -70,7 +68,6 @@ class db {
 
 
     createDocument(document) {
-        console.log(`Getting document:\n${document.id}\n`);
         let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
         return new Promise((resolve, reject) => {
             client.readDocument(documentUrl, (err, result) => {
@@ -94,7 +91,6 @@ class db {
 
 
     queryCollection(id) {
-        console.log(`Querying collection through index:\n${collectionId}`);
         let collectionUrl = uriFactory.createDocumentCollectionUri(databaseId, collectionId);
 
         const querySpec = {
