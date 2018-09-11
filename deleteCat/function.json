@@ -4,7 +4,11 @@
       "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",
-      "name": "req"
+      "name": "req",
+      "route": "cats/{id}",
+      "methods": [
+        "delete"
+      ]
     },
     {
       "type": "http",

@@ -16,7 +16,7 @@ module.exports = function (context, req) {
         })
         .catch(() => {
             context.res = {
-                status: HttpStatusCodes.NOTFOUND,
+                status: 404,
                 body: "no cat with id " + catId
             };
             context.done();

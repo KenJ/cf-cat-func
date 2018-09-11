@@ -69,7 +69,7 @@ class db {
     };
 
 
-    getFamilyDocument(document) {
+    createDocument(document) {
         console.log(`Getting document:\n${document.id}\n`);
         let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
         return new Promise((resolve, reject) => {
@@ -97,7 +97,6 @@ class db {
         console.log(`Querying collection through index:\n${collectionId}`);
         let collectionUrl = uriFactory.createDocumentCollectionUri(databaseId, collectionId);
 
-        // query to return all children in a family
         const querySpec = {
             query: "select * from c"
         };
@@ -105,10 +104,10 @@ class db {
         if(id){
             querySpec.query = "select * from c where c.id = @id";
             querySpec.parameters = [
-            {
-                name: "@id",
-                value: id
-            }
+                {
+                    name: "@id",
+                    value: id
+                }
             ];
         }
 
@@ -116,17 +115,12 @@ class db {
             client.queryDocuments(
                 collectionUrl,
                 querySpec
-//                "SELECT VALUE r.children FROM c WHERE c.id = @id"
             ).toArray((err, results) => {
-                if (err) reject(err)
+                if (err) {
+                    reject(err);
+                }
                 else {
-                    for (var queryResult of results) {
-                        let resultString = JSON.stringify(queryResult);
-                        console.log(`\tQuery returned ${resultString}`);
-                    }
-                    console.log();
                     resolve(results);
-                    return results;
                 }
             });
 
@@ -135,34 +129,39 @@ class db {
 
 
 
-    // replaceFamilyDocument(document) {
-    //     console.log(`Replacing document:\n${document.id}\n`);
-    //     let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
-    //     document.children[0].grade = 6;
-    //     return new Promise((resolve, reject) => {
-    //         client.replaceDocument(documentUrl, document, (err, result) => {
-    //             if (err) reject(err);
-    //             else {
-    //                 resolve(result);
-    //             }
-    //         });
-    //     });
-    // };
+    replaceDocument(document) {
+
+        let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
+
+        return new Promise((resolve, reject) => {
+            client.replaceDocument(documentUrl, document, (err, result) => {
+                if (err){
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+    };
 
 
 
-    // deleteFamilyDocument(document) {
-    //     console.log(`Deleting document:\n${document.id}\n`);
-    //     let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
-    //     return new Promise((resolve, reject) => {
-    //         client.deleteDocument(documentUrl, (err, result) => {
-    //             if (err) reject(err);
-    //             else {
-    //                 resolve(result);
-    //             }
-    //         });
-    //     });
-    // };
+    deleteDocument(document) {
+
+        let documentUrl = uriFactory.createDocumentUri(databaseId, collectionId, document.id);
+
+        return new Promise((resolve, reject) => {
+            client.deleteDocument(documentUrl, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+    };
 
 
     // cleanup() {
